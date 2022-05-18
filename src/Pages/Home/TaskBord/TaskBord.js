@@ -10,16 +10,13 @@ const TaskBord = () => {
     const confirm = window.confirm("Are you Sure?");
     if (confirm) {
       const url = `https://fast-savannah-48663.herokuapp.com/tasks/${id}`;
-      console.log(url);
       fetch(url, {
         method: "DELETE",
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           toast("Tasks Delete Successfully");
           const remaining = tasks.filter((task) => task._id !== id);
-          console.log(remaining);
           setTasks(remaining);
         });
     }
@@ -31,7 +28,7 @@ const TaskBord = () => {
         <div class="overflow-x-auto my-10">
           <table class="table table-zebra w-full">
             <thead>
-              <tr>
+              <tr className="">
                 <th>No</th>
                 <th>Task Name</th>
                 <th>Description</th>
@@ -43,7 +40,7 @@ const TaskBord = () => {
                 <tr>
                   <th>{index + 1}</th>
                   <td>{task.taskName}</td>
-                  <td>{task.description}</td>
+                  <td className='break-normal' title={task.description}>{task.description.slice(0,50)}</td>
                   <td>
                     <button onClick={() => handleDelete(task._id)} class="btn text-red-500 btn-ghost">
                       Delete
